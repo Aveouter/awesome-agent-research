@@ -1,6 +1,6 @@
 # Paper Tracker
 
-更新时间：2026-09-14
+更新时间：2026-09-15
 
 > “AI 导读已建”只表示仓库里已有辅助摘要，不代表本人读过。
 
@@ -10,8 +10,10 @@
 | MA-002 | 多 Agent | ACL 2025 | MultiAgentBench | TO_READ | skimmed | [导读](notes/multi-agent/multiagentbench.md) | 核对强单 Agent 基线与成本指标 |
 | CL-001 | 持续学习 | TPAMI 2026 | Lifelong Learning of LLM-based Agents: A Roadmap | TO_READ | skimmed | [导读](notes/continual-learning/lifelong-agent-roadmap.md) | 重点读定义、记忆和评测章节 |
 | CL-002 | 持续学习 | arXiv 2025 | LifelongAgentBench | TO_READ | skimmed | [导读](notes/continual-learning/lifelongagentbench.md) | 选一个环境跑最小基线 |
+| CL-003 | 持续学习 | ICML 2026 | Little by Little: Continual Learning via Incremental Mixture of Rank-1 Associative Memory Experts | TO_READ | abstract-only | [导读](notes/continual-learning/moram.md) | 核对 rank-1 原子复用、路由消融和容量增长成本 |
 | MC-001 | 元认知 | AAAI 2025 | Decoupling Metacognition from Cognition | TO_READ | skimmed | [导读](notes/metacognition/dmc.md) | 复核指标与代码可运行性 |
 | MC-002 | 元认知 | ICML 2025 | Reflection-Bench | TO_READ | abstract-only | [导读](notes/metacognition/reflection-bench.md) | 明确七项能力如何映射到 Agent |
+| X-001 | 跨方向 | arXiv 2026 | Mendel Gödel Machine | TO_READ | abstract-only | [导读](notes/cross-cutting/mendel-godel-machine.md) | 精读比较进化算子、基线公平性和迁移实验 |
 
 ## 本月目标
 
