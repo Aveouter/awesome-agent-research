@@ -1,0 +1,47 @@
+name: Reproduction experiment
+description: 定义一个可证伪的最小复现或验证实验
+title: "[Experiment] "
+labels:
+  - "type: experiment"
+  - "status: planned"
+body:
+  - type: input
+    id: paper_id
+    attributes:
+      label: 关联论文 ID
+      placeholder: MA-001
+    validations:
+      required: true
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: 可证伪假设
+      description: 不要写功能清单；说明预期关系以及什么结果会推翻它。
+    validations:
+      required: true
+  - type: textarea
+    id: comparison
+    attributes:
+      label: 最小实验与对照组
+    validations:
+      required: true
+  - type: input
+    id: metrics
+    attributes:
+      label: 主要指标
+      placeholder: 成功率、Token、延迟、校准误差
+    validations:
+      required: true
+  - type: textarea
+    id: budget
+    attributes:
+      label: 资源预算
+      description: 模型、GPU/API、样本数、预计时间和费用。
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: 完成标准
+    validations:
+      required: true

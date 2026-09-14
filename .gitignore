@@ -5,6 +5,7 @@ models/
 checkpoints/
 outputs/
 traces/
+*.tmp
 
 # Secrets and local environments
 .env

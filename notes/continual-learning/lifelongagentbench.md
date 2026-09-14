@@ -8,6 +8,7 @@
 - Code：https://github.com/caixd-220529/LifelongAgentBench
 - Tags：lifelong learning, benchmark, memory, replay
 - Status：TO_READ（AI 导读已建，本人待精读）
+- Evidence level：skimmed
 
 ## 一句话结论
 

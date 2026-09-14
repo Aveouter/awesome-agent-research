@@ -1,0 +1,23 @@
+name: Validate research repository
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Validate structure and metadata
+        run: python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py validate
+
+      - name: Check whitespace errors
+        run: git diff --check HEAD^ HEAD || git diff --check --cached

@@ -12,12 +12,21 @@
 
 ```text
 awesome-agent-research/
+├── AGENTS.md                  # Agent 工作守则与不变量
+├── CONTEXT.md                 # 仓库术语的单一来源
+├── WORKFLOW.md                # 人与 Agent 共用的研究流程
 ├── papers.md                  # 唯一的论文进度总表
 ├── inbox.md                   # 尚未分类的新论文
+├── .agents/skills/            # 仓库级可复用 Agent Skill
 ├── notes/                     # 一篇论文一个 Markdown 文件
 │   ├── continual-learning/
 │   ├── multi-agent/
 │   └── metacognition/
+├── artifacts/                 # 核心论文的分阶段分析产物
+├── concepts/                  # 跨论文稳定概念
+├── entities/                  # 数据集、benchmark、方法等实体
+├── syntheses/                 # 跨论文比较与综合
+├── reports/                   # 月报与方向报告
 ├── research/
 │   ├── direction-map.md       # 三个方向的关系与个人判断
 │   └── idea-backlog.md        # 可检验的研究想法
@@ -39,6 +48,25 @@ awesome-agent-research/
 - `DROPPED`：确认暂时不值得继续投入
 
 初始化的六篇笔记是 AI 辅助导读，状态仍为 `TO_READ`，需要本人阅读后才能更新。
+
+## 标准 Workflow
+
+完整流程见 [WORKFLOW.md](WORKFLOW.md)：
+
+```text
+INBOX → TO_READ → SKIMMED → DEEP_READ → REPRODUCING → REPRODUCED
+                         ↘ DROPPED
+```
+
+GitHub 提供 Paper、Experiment 和 Research Idea 三种 issue 表单。仓库会在 push 和 Pull Request 时自动检查论文 ID、状态、笔记元数据和内部链接；本地可以运行：
+
+```bash
+python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py validate
+```
+
+仓库级 Agent Skill 位于 `.agents/skills/run-agent-paper-workflow/`。Codex 在仓库内启动时可以自动发现，也可以显式使用 `$run-agent-paper-workflow`。
+
+结构与流程参考了 [ACautomata/researcher-service](https://github.com/ACautomata/researcher-service) 及其关联的 [ACautomata/researcher](https://github.com/ACautomata/researcher)，保留了“持久规则 + 场景 Skill + 确定性脚本 + 分阶段质量门”的思想，但简化为适合个人博士研究的单一编排 Skill。
 
 ## 推荐工作流
 

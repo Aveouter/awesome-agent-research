@@ -8,6 +8,7 @@
 - Code：https://github.com/multi-agent-systems-failure-taxonomy/MAST
 - Tags：multi-agent, failure taxonomy, evaluation, reliability
 - Status：TO_READ（AI 导读已建，本人待精读）
+- Evidence level：skimmed
 
 ## 一句话结论
 

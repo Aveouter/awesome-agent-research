@@ -9,7 +9,10 @@
 - Code：
 - Tags：
 - Status：TO_READ
+- Evidence level：abstract-only
 - Read date：
+
+> Status 表示本人阅读进度；Evidence level 表示当前页面依据 `abstract-only`、`skimmed`、`full-paper` 或 `reproduced` 哪一层材料。
 
 ## 一句话结论
 
@@ -33,6 +36,7 @@
 - 模型与基线：
 - 指标：
 - 最重要的结果：
+- 对应表格 / 图 / 页码：
 - 消融实验是否支持作者的解释：
 
 ## 4. 我的批判性判断

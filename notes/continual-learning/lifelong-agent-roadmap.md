@@ -8,6 +8,7 @@
 - Resources：https://github.com/qianlima-lab/awesome-lifelong-llm-agent
 - Tags：lifelong learning, survey, memory, agent
 - Status：TO_READ（AI 导读已建，本人待精读）
+- Evidence level：skimmed
 
 ## 一句话结论
 

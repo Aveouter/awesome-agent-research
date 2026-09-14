@@ -8,6 +8,7 @@
 - Code：https://github.com/Angelo3357/DMC
 - Tags：metacognition, calibration, confidence, abstention
 - Status：TO_READ（AI 导读已建，本人待精读）
+- Evidence level：skimmed
 
 ## 一句话结论
 

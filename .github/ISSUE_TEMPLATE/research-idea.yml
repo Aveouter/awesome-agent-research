@@ -1,0 +1,40 @@
+name: Research idea
+description: 将观察整理为可以验证的研究问题
+title: "[Idea] "
+labels:
+  - "type: idea"
+  - "status: proposed"
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 研究问题
+      description: 谁在什么条件下遇到什么具体问题？
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 已有证据
+      description: 关联论文 ID、实验结果或失败案例。
+    validations:
+      required: true
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: 核心假设
+    validations:
+      required: true
+  - type: textarea
+    id: falsification
+    attributes:
+      label: 反证条件
+      description: 出现什么结果时应该放弃或修改这个想法？
+    validations:
+      required: true
+  - type: textarea
+    id: next_step
+    attributes:
+      label: 一周内的最小验证
+    validations:
+      required: true

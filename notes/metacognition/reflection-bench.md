@@ -8,6 +8,7 @@
 - Code：https://github.com/AI45Lab/ReflectionBench
 - Tags：metacognition, epistemic agency, reflection, benchmark
 - Status：TO_READ（AI 导读已建，本人待精读）
+- Evidence level：abstract-only
 
 ## 一句话结论
 

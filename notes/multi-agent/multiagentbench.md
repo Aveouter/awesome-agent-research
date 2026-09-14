@@ -8,6 +8,7 @@
 - Code：https://github.com/ulab-uiuc/MARBLE
 - Tags：multi-agent, benchmark, topology, coordination
 - Status：TO_READ（AI 导读已建，本人待精读）
+- Evidence level：skimmed
 
 ## 一句话结论
 

@@ -1,0 +1,43 @@
+name: Paper intake
+description: 收录一篇准备筛选或阅读的论文
+title: "[Paper] "
+labels:
+  - "type: paper"
+  - "status: inbox"
+body:
+  - type: input
+    id: title
+    attributes:
+      label: 论文标题
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: 原始来源
+      description: 优先填写会议主页、出版社页面或 arXiv 链接。
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 方向
+      options:
+        - Multi-Agent
+        - Continual Learning
+        - Metacognition
+        - Cross-cutting
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: 收录理由
+      description: 它可能改变哪个研究判断，或者提供什么方法、数据和基线？
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: 发现渠道
+      placeholder: 导师推荐、引用链、会议列表等
