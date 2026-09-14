@@ -149,6 +149,10 @@ def validate() -> list[str]:
     for artifact_dir in sorted((ROOT / "artifacts").iterdir()):
         if artifact_dir.is_dir() and not PAPER_ID_PATTERN.fullmatch(artifact_dir.name):
             errors.append(f"artifacts/{artifact_dir.name}: directory must use a paper ID")
+        elif artifact_dir.is_dir() and artifact_dir.name not in tracker:
+            errors.append(
+                f"artifacts/{artifact_dir.name}: paper ID is absent from papers.md"
+            )
 
     for markdown_file in sorted(ROOT.rglob("*.md")):
         if ".git" in markdown_file.parts:
@@ -232,6 +236,14 @@ def transition(paper_id: str, new_status: str, reason: str | None) -> int:
     if old_status == "DROPPED" and new_status == "TO_READ" and not reason:
         print("DROPPED -> TO_READ requires --reason with the new evidence or priority change.")
         return 1
+    if reason is not None:
+        reason = reason.strip()
+        if not reason:
+            print("--reason must not be empty.")
+            return 1
+        if any(character in reason for character in ("|", "\n", "\r")):
+            print("--reason must be a single Markdown-table-safe line without '|'.")
+            return 1
 
     note_match = NOTE_LINK_PATTERN.search(matched_cells[6])
     if not note_match:
@@ -240,7 +252,7 @@ def transition(paper_id: str, new_status: str, reason: str | None) -> int:
     note_path = ROOT / note_match.group(1)
     note_content = note_path.read_text(encoding="utf-8")
     updated_note, substitutions = re.subn(
-        r"(^- Status：\s*)[A-Z_]+",
+        r"(^- Status：\s*).*$",
         rf"\g<1>{new_status}",
         note_content,
         count=1,
