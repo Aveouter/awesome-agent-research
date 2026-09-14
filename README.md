@@ -1,82 +1,94 @@
 # Awesome Agent Research
 
-面向博士研究的 Agent 论文阅读、复现与选题仓库，当前关注三个方向：
+A curated paper list and evidence-backed research workspace for reliable, adaptive AI agents.
 
-- 多 Agent 协同（Multi-Agent Collaboration）
-- Agent 持续学习（Continual / Lifelong Learning）
-- Agent 元认知（Metacognition / Self-Awareness）
+本仓库持续整理三个相互关联的方向：**多 Agent 协同**、**Agent 持续学习**与 **Agent 元认知**。当前研究主线是：利用元认知进行能力评估、路由和验证，通过持续学习积累经验，从而构建可靠、自适应的多 Agent 系统。
 
-这个仓库不保存论文 PDF，只保存论文链接、自己的理解、实验记录和研究判断。PDF 建议交给 Zotero 管理，避免 Git 仓库膨胀和版权问题。
+[论文总表](papers.md) · [阅读工作流](WORKFLOW.md) · [研究方向图](research/direction-map.md) · [仓库使用说明](docs/repository-guide.md) · [BibTeX](references/library.bib)
 
-## 仓库结构
+> [!NOTE]
+> 论文状态表示本人阅读进度，Evidence 表示笔记实际核对材料的深度；AI 辅助导读不等于本人已经读过。
 
-```text
-awesome-agent-research/
-├── AGENTS.md                  # Agent 工作守则与不变量
-├── CONTEXT.md                 # 仓库术语的单一来源
-├── WORKFLOW.md                # 人与 Agent 共用的研究流程
-├── papers.md                  # 唯一的论文进度总表
-├── inbox.md                   # 尚未分类的新论文
-├── .agents/skills/            # 仓库级可复用 Agent Skill
-├── notes/                     # 一篇论文一个 Markdown 文件
-│   ├── continual-learning/
-│   ├── multi-agent/
-│   └── metacognition/
-├── artifacts/                 # 核心论文的分阶段分析产物
-├── concepts/                  # 跨论文稳定概念
-├── entities/                  # 数据集、benchmark、方法等实体
-├── syntheses/                 # 跨论文比较与综合
-├── reports/                   # 月报与方向报告
-├── research/
-│   ├── direction-map.md       # 三个方向的关系与个人判断
-│   └── idea-backlog.md        # 可检验的研究想法
-├── experiments/README.md      # 复现实验规范与索引
-├── logs/weekly/               # 每周研究日志
-├── references/library.bib     # 写论文时使用的 BibTeX
-└── templates/paper-note.md    # 精读模板
-```
+## 📣 Updates
 
-## 阅读状态
+- **2026-09** — 建立首批 6 篇核心论文导读，覆盖多 Agent 失败分析、协同评测、持续学习与元认知评测。
+- **2026-09** — 加入结构化阅读、审稿式批判、实验设计、复现与质量审计工作流。
 
-总表只使用以下状态，避免“收藏等于读过”：
+## 📚 Table of Contents
 
-- `TO_READ`：已收录，尚未阅读
-- `SKIMMED`：看过摘要、图表和结论
-- `DEEP_READ`：通读并完成结构化笔记
-- `REPRODUCING`：正在复现
-- `REPRODUCED`：完成复现并记录结果
-- `DROPPED`：确认暂时不值得继续投入
+- [Multi-Agent Collaboration](#-multi-agent-collaboration)
+  - [Reliability and Failure Analysis](#reliability-and-failure-analysis)
+  - [Evaluation and Coordination](#evaluation-and-coordination)
+- [Continual and Lifelong Learning](#-continual-and-lifelong-learning)
+  - [Roadmaps and Surveys](#roadmaps-and-surveys)
+  - [Benchmarks and Memory](#benchmarks-and-memory)
+- [Agent Metacognition](#-agent-metacognition)
+  - [Calibration and Self-Knowledge](#calibration-and-self-knowledge)
+  - [Reflection and Epistemic Agency](#reflection-and-epistemic-agency)
+- [Reading Status](#-reading-status)
+- [Add a Paper](#-add-a-paper)
 
-初始化的六篇笔记是 AI 辅助导读，状态仍为 `TO_READ`，需要本人阅读后才能更新。
+## 🤝 Multi-Agent Collaboration
 
-## 标准 Workflow
+关注多 Agent 系统的失败机理、通信结构、任务分配、验证机制，以及性能与协作成本之间的权衡。
 
-完整流程见 [WORKFLOW.md](WORKFLOW.md)：
+### Reliability and Failure Analysis
 
-```text
-INBOX → TO_READ → SKIMMED → DEEP_READ → REPRODUCING → REPRODUCED
-                         ↘ DROPPED
-```
+- **NeurIPS Datasets and Benchmarks 2025** — [Why Do Multi-Agent LLM Systems Fail?](https://arxiv.org/abs/2503.13657), Mert Cemri et al.<br>
+  从 7 个多 Agent 系统的执行轨迹中归纳失败模式，适合作为失败感知协同控制的起点。<br>
+  [Code](https://github.com/multi-agent-systems-failure-taxonomy/MAST) · [Reading note](notes/multi-agent/why-mas-fail.md) · `MA-001` · `TO_READ / skimmed`
 
-GitHub 提供 Paper、Experiment 和 Research Idea 三种 issue 表单。仓库会在 push 和 Pull Request 时自动检查论文 ID、状态、笔记元数据和内部链接；本地可以运行：
+### Evaluation and Coordination
 
-```bash
-python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py validate
-```
+- **ACL 2025** — [MultiAgentBench: Evaluating the Collaboration and Competition of LLM Agents](https://aclanthology.org/2025.acl-long.421/), Kunlun Zhu et al.<br>
+  在六类环境中比较协作策略与通信拓扑，并同时衡量任务表现和协作过程。<br>
+  [Code](https://github.com/ulab-uiuc/MARBLE) · [Reading note](notes/multi-agent/multiagentbench.md) · `MA-002` · `TO_READ / skimmed`
 
-仓库级 Agent Skill 位于 `.agents/skills/run-agent-paper-workflow/`。Codex 在仓库内启动时可以自动发现，也可以显式使用 `$run-agent-paper-workflow`。
+## 🧠 Continual and Lifelong Learning
 
-结构与流程参考了 [ACautomata/researcher-service](https://github.com/ACautomata/researcher-service) 及其关联的 [ACautomata/researcher](https://github.com/ACautomata/researcher)，保留了“持久规则 + 场景 Skill + 确定性脚本 + 分阶段质量门”的思想，但简化为适合个人博士研究的单一编排 Skill。
+关注 Agent 如何写入、选择、压缩和遗忘经验，以及如何同时保持可塑性、稳定性和长期效率。
 
-## 推荐工作流
+### Roadmaps and Surveys
 
-1. 新论文先放进 [inbox.md](inbox.md)，不要立即分类。
-2. 每周从 inbox 选择 2–3 篇，登记到 [papers.md](papers.md)。
-3. 复制 [论文精读模板](templates/paper-note.md)，完成一篇一页的笔记。
-4. 每篇至少写清楚：解决什么问题、核心证据、最大局限、能否复现、能产生什么新问题。
-5. 只有可验证的想法才进入 [idea-backlog.md](research/idea-backlog.md)。
-6. 每周写一次研究日志，记录判断发生了什么变化。
+- **IEEE TPAMI 2026** — [Lifelong Learning of Large Language Model Based Agents: A Roadmap](https://arxiv.org/abs/2501.07278), Junhao Zheng et al.<br>
+  从感知、记忆和行动组织持续学习 Agent 文献，突出稳定性—可塑性矛盾。<br>
+  [Resources](https://github.com/qianlima-lab/awesome-lifelong-llm-agent) · [Reading note](notes/continual-learning/lifelong-agent-roadmap.md) · `CL-001` · `TO_READ / skimmed`
 
-## 当前研究假设
+### Benchmarks and Memory
 
-暂定主线为：**可靠、自适应的多 Agent 协同**；以元认知完成能力评估、路由和验证，以持续学习积累长期经验。这个假设会随阅读和实验更新，而不是预设结论。
+- **arXiv 2025** — [LifelongAgentBench: Evaluating LLM Agents as Lifelong Learners](https://arxiv.org/abs/2505.11942), Junhao Zheng et al.<br>
+  评估交互式环境中的顺序任务与经验回放，揭示更多记忆不一定带来更好表现。<br>
+  [Code](https://github.com/caixd-220529/LifelongAgentBench) · [Reading note](notes/continual-learning/lifelongagentbench.md) · `CL-002` · `TO_READ / skimmed`
+
+## 🪞 Agent Metacognition
+
+关注 Agent 是否知道自己会什么、何时可能失败，以及如何据此求助、路由、验证和修正行为。
+
+### Calibration and Self-Knowledge
+
+- **AAAI 2025** — [Decoupling Metacognition from Cognition: A Framework for Quantifying Metacognitive Ability in LLMs](https://ojs.aaai.org/index.php/AAAI/article/view/34723), Guoqing Wang et al.<br>
+  区分任务能力与判断自身答案是否可靠的能力，为拒答、求助和验证路由提供量化基础。<br>
+  [Code](https://github.com/Angelo3357/DMC) · [Reading note](notes/metacognition/dmc.md) · `MC-001` · `TO_READ / skimmed`
+
+### Reflection and Epistemic Agency
+
+- **ICML 2025** — [Reflection-Bench: Evaluating Epistemic Agency in Large Language Models](https://proceedings.mlr.press/v267/li25cu.html), Lingyu Li et al.<br>
+  将 epistemic agency 拆分为七类能力，用于定位预测、记忆、信念更新和元反思等薄弱环节。<br>
+  [Code](https://github.com/AI45Lab/ReflectionBench) · [Reading note](notes/metacognition/reflection-bench.md) · `MC-002` · `TO_READ / abstract-only`
+
+## 🏷 Reading Status
+
+| Status | Meaning |
+|---|---|
+| `TO_READ` | 已收录，本人尚未阅读 |
+| `SKIMMED` | 本人已速读摘要、图表和结论 |
+| `DEEP_READ` | 本人已通读并完成结构化笔记 |
+| `REPRODUCING` | 正在验证或复现关键结果 |
+| `REPRODUCED` | 已得到并记录可解释的复现结果 |
+| `DROPPED` | 当前证据不足以继续投入 |
+
+Evidence 由浅到深为：`abstract-only → skimmed → full-paper → reproduced`。完整进度与下一步见 [Paper Tracker](papers.md)。
+
+## ➕ Add a Paper
+
+新发现的论文先加入 [inbox](inbox.md)，写明它可能改变的研究判断；也可以提交 [Paper intake issue](https://github.com/Aveouter/awesome-agent-research/issues/new?template=paper.yml)。所有修改都通过 Pull Request 完成，具体维护规范见 [Repository Guide](docs/repository-guide.md)。
