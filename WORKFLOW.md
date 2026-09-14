@@ -152,7 +152,7 @@ experiments/<paper-id>-<short-name>/
 
 ## 10. Git 约定
 
-个人日常笔记可以直接提交到 `main`；实验代码、目录重构和大规模修改使用分支及 Pull Request。
+所有修改，包括日常笔记、元数据、实验代码和仓库维护，都必须从最新 `main` 建立独立分支，通过 Pull Request 和自动检查后再合并。不得直接推送 `main`。
 
 分支命名：
 
