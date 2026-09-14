@@ -11,6 +11,7 @@ A curated paper list and evidence-backed research workspace for reliable, adapti
 
 ## 📣 Updates
 
+- **2026-09** — 收录 ICML 2026 的 MoRAM 与跨方向自改进 Agent 工作 Mendel Gödel Machine。
 - **2026-09** — 建立首批 6 篇核心论文导读，覆盖多 Agent 失败分析、协同评测、持续学习与元认知评测。
 - **2026-09** — 加入结构化阅读、审稿式批判、实验设计、复现与质量审计工作流。
 
@@ -21,10 +22,13 @@ A curated paper list and evidence-backed research workspace for reliable, adapti
   - [Evaluation and Coordination](#evaluation-and-coordination)
 - [Continual and Lifelong Learning](#-continual-and-lifelong-learning)
   - [Roadmaps and Surveys](#roadmaps-and-surveys)
-  - [Benchmarks and Memory](#benchmarks-and-memory)
+  - [Methods and Memory](#methods-and-memory)
+  - [Benchmarks](#benchmarks)
 - [Agent Metacognition](#-agent-metacognition)
   - [Calibration and Self-Knowledge](#calibration-and-self-knowledge)
   - [Reflection and Epistemic Agency](#reflection-and-epistemic-agency)
+- [Cross-Cutting Agent Self-Improvement](#-cross-cutting-agent-self-improvement)
+  - [Recursive Self-Improving Agents](#recursive-self-improving-agents)
 - [Reading Status](#-reading-status)
 - [Add a Paper](#-add-a-paper)
 
@@ -54,7 +58,13 @@ A curated paper list and evidence-backed research workspace for reliable, adapti
   从感知、记忆和行动组织持续学习 Agent 文献，突出稳定性—可塑性矛盾。<br>
   [Resources](https://github.com/qianlima-lab/awesome-lifelong-llm-agent) · [Reading note](notes/continual-learning/lifelong-agent-roadmap.md) · `CL-001` · `TO_READ / skimmed`
 
-### Benchmarks and Memory
+### Methods and Memory
+
+- **ICML 2026** — [Little by Little: Continual Learning via Incremental Mixture of Rank-1 Associative Memory Experts](https://arxiv.org/abs/2506.21035), Haodong Lu et al.<br>
+  MoRAM 将持续学习重写为可复用 rank-1 记忆原子的增量扩展，并使用基于内在 key 的自激活替代显式路由器。<br>
+  [Project](https://artificer-ai-lab.github.io/MoRAM/) · [Code](https://github.com/Artificer-AI-Lab/MoRAM) · [Reading note](notes/continual-learning/moram.md) · `CL-003` · `TO_READ / abstract-only`
+
+### Benchmarks
 
 - **arXiv 2025** — [LifelongAgentBench: Evaluating LLM Agents as Lifelong Learners](https://arxiv.org/abs/2505.11942), Junhao Zheng et al.<br>
   评估交互式环境中的顺序任务与经验回放，揭示更多记忆不一定带来更好表现。<br>
@@ -75,6 +85,16 @@ A curated paper list and evidence-backed research workspace for reliable, adapti
 - **ICML 2025** — [Reflection-Bench: Evaluating Epistemic Agency in Large Language Models](https://proceedings.mlr.press/v267/li25cu.html), Lingyu Li et al.<br>
   将 epistemic agency 拆分为七类能力，用于定位预测、记忆、信念更新和元反思等薄弱环节。<br>
   [Code](https://github.com/AI45Lab/ReflectionBench) · [Reading note](notes/metacognition/reflection-bench.md) · `MC-002` · `TO_READ / abstract-only`
+
+## 🧬 Cross-Cutting Agent Self-Improvement
+
+收录连接持续适应、元层控制与 Agent 工作流演化的跨方向研究。
+
+### Recursive Self-Improving Agents
+
+- **arXiv 2026** — [Mendel Gödel Machine: Recursive Self-Improving Coding Agents via Comparative Evolution](https://arxiv.org/abs/2608.07645), Changzhi Liu et al.<br>
+  MGM 利用同一 Agent 跨任务以及不同谱系 Agent 之间的比较证据，指导编码 Agent 递归修改自身工作流。<br>
+  [Project](https://reallcz.github.io/MGM/) · [Code](https://github.com/RealLcz/MGM) · [Reading note](notes/cross-cutting/mendel-godel-machine.md) · `X-001` · `TO_READ / abstract-only`
 
 ## 🏷 Reading Status
 

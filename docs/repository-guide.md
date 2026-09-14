@@ -19,6 +19,7 @@ awesome-agent-research/
 ├── inbox.md                   # 尚未分类的新论文
 ├── .agents/skills/            # 仓库级可复用 Agent Skill
 ├── notes/                     # 一篇论文一个 Markdown 文件
+│   ├── cross-cutting/
 │   ├── continual-learning/
 │   ├── multi-agent/
 │   └── metacognition/
