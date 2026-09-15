@@ -4,7 +4,7 @@ A curated paper list and evidence-backed research workspace for reliable, adapti
 
 本仓库持续整理三个相互关联的方向：**多 Agent 协同**、**Agent 持续学习**与 **Agent 元认知**。当前研究主线是：利用元认知进行能力评估、路由和验证，通过持续学习积累经验，从而构建可靠、自适应的多 Agent 系统。
 
-[论文总表](papers.md) · [阅读工作流](WORKFLOW.md) · [研究方向图](research/direction-map.md) · [仓库使用说明](docs/repository-guide.md) · [BibTeX](references/library.bib)
+[论文总表](papers.md) · [明日综述阅读包](reports/2026-09-16-survey-reading-pack.md) · [阅读工作流](WORKFLOW.md) · [研究方向图](research/direction-map.md) · [仓库使用说明](docs/repository-guide.md) · [BibTeX](references/library.bib)
 
 > [!NOTE]
 > 论文状态表示本人阅读进度，Evidence 表示笔记实际核对材料的深度；AI 辅助导读不等于本人已经读过。
@@ -12,12 +12,14 @@ A curated paper list and evidence-backed research workspace for reliable, adapti
 ## 📣 Updates
 
 - **2026-09** — 收录 ICML 2026 的 MoRAM 与跨方向自改进 Agent 工作 Mendel Gödel Machine。
+- **2026-09** — 整理三个方向的综述阅读包：每个方向 1 篇主读、1 篇备选。
 - **2026-09** — 建立首批 6 篇核心论文导读，覆盖多 Agent 失败分析、协同评测、持续学习与元认知评测。
 - **2026-09** — 加入结构化阅读、审稿式批判、实验设计、复现与质量审计工作流。
 
 ## 📚 Table of Contents
 
 - [Multi-Agent Collaboration](#-multi-agent-collaboration)
+  - [Surveys and Taxonomies](#surveys-and-taxonomies)
   - [Reliability and Failure Analysis](#reliability-and-failure-analysis)
   - [Evaluation and Coordination](#evaluation-and-coordination)
 - [Continual and Lifelong Learning](#-continual-and-lifelong-learning)
@@ -25,6 +27,7 @@ A curated paper list and evidence-backed research workspace for reliable, adapti
   - [Methods and Memory](#methods-and-memory)
   - [Benchmarks](#benchmarks)
 - [Agent Metacognition](#-agent-metacognition)
+  - [Surveys and Control](#surveys-and-control)
   - [Calibration and Self-Knowledge](#calibration-and-self-knowledge)
   - [Reflection and Epistemic Agency](#reflection-and-epistemic-agency)
 - [Cross-Cutting Agent Self-Improvement](#-cross-cutting-agent-self-improvement)
@@ -35,6 +38,16 @@ A curated paper list and evidence-backed research workspace for reliable, adapti
 ## 🤝 Multi-Agent Collaboration
 
 关注多 Agent 系统的失败机理、通信结构、任务分配、验证机制，以及性能与协作成本之间的权衡。
+
+### Surveys and Taxonomies
+
+- **IJCAI 2024 Survey Track** — [Large Language Model Based Multi-agents: A Survey of Progress and Challenges](https://www.ijcai.org/proceedings/2024/890), Taicheng Guo et al.<br>
+  从应用环境、Agent profile、通信、能力发展与评测资源建立全局地图，适合作为多 Agent 方向的第一篇综述。<br>
+  [Resources](https://github.com/taichengguo/LLM_MultiAgents_Survey_Papers) · [Reading note](notes/multi-agent/llm-multi-agent-survey.md) · `MA-003` · `TO_READ / abstract-only`
+
+- **arXiv 2025** — [Multi-Agent Collaboration Mechanisms: A Survey of LLMs](https://arxiv.org/abs/2501.06322), Khanh-Tung Tran et al.<br>
+  围绕参与者、协作类型、结构、策略与协调协议细分协同机制，作为主综述的机制层补充。<br>
+  [Reading note](notes/multi-agent/collaboration-mechanisms-survey.md) · `MA-004` · `TO_READ / abstract-only`
 
 ### Reliability and Failure Analysis
 
@@ -58,6 +71,10 @@ A curated paper list and evidence-backed research workspace for reliable, adapti
   从感知、记忆和行动组织持续学习 Agent 文献，突出稳定性—可塑性矛盾。<br>
   [Resources](https://github.com/qianlima-lab/awesome-lifelong-llm-agent) · [Reading note](notes/continual-learning/lifelong-agent-roadmap.md) · `CL-001` · `TO_READ / skimmed`
 
+- **ACM TOIS 2025** — [A Survey on the Memory Mechanism of Large Language Model-based Agents](https://doi.org/10.1145/3748302), Zeyu Zhang et al.<br>
+  系统整理 Agent 记忆的设计、管理与评测，将持续学习中最可落地的模块单独展开。<br>
+  [Preprint](https://arxiv.org/abs/2404.13501) · [Resources](https://github.com/nuster1128/LLM_Agent_Memory_Survey) · [Reading note](notes/continual-learning/agent-memory-survey.md) · `CL-004` · `TO_READ / abstract-only`
+
 ### Methods and Memory
 
 - **ICML 2026** — [Little by Little: Continual Learning via Incremental Mixture of Rank-1 Associative Memory Experts](https://arxiv.org/abs/2506.21035), Haodong Lu et al.<br>
@@ -73,6 +90,16 @@ A curated paper list and evidence-backed research workspace for reliable, adapti
 ## 🪞 Agent Metacognition
 
 关注 Agent 是否知道自己会什么、何时可能失败，以及如何据此求助、路由、验证和修正行为。
+
+### Surveys and Control
+
+- **Findings of ACL 2026** — [From Passive Metric to Active Signal: The Evolving Role of Uncertainty Quantification in Large Language Models](https://aclanthology.org/2026.findings-acl.2064/), Jiaxin Zhang et al.<br>
+  把不确定性从离线指标推进为推理预算、工具调用、信息检索和自我纠错的在线控制信号。<br>
+  [Reading note](notes/metacognition/uncertainty-as-active-signal-survey.md) · `MC-003` · `TO_READ / abstract-only`
+
+- **TACL 2024** — [When Can LLMs Actually Correct Their Own Mistakes? A Critical Survey of Self-Correction of LLMs](https://aclanthology.org/2024.tacl-1.78/), Ryo Kamoi et al.<br>
+  批判性梳理自我纠错何时成立，提醒区分模型自身反馈、外部反馈与训练带来的收益。<br>
+  [Reading note](notes/metacognition/self-correction-critical-survey.md) · `MC-004` · `TO_READ / abstract-only`
 
 ### Calibration and Self-Knowledge
 
