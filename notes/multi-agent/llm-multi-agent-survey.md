@@ -8,9 +8,9 @@
 - Paper：https://www.ijcai.org/proceedings/2024/890
 - Resources：https://github.com/taichengguo/LLM_MultiAgents_Survey_Papers
 - Tags：multi-agent, survey, communication, profiling, benchmark
-- Status：TO_READ（AI 已核对关键正文；本人阅读进度不变）
+- Status：DEEP_READ（用户已确认阅读完成）
 - Evidence level：skimmed
-- Read date：
+- Read date：具体日期未提供；2026-09-21 确认已读完
 
 > 历史范围说明：原导读只依据官方元数据与摘要，未核对正文、图表和引用覆盖范围；本轮补充的范围见后文。
 
@@ -79,4 +79,8 @@
 
 对方向地图的作用是明确“元认知信号—控制动作—客观反馈”各处属于什么配置层，而不是增加一条宽泛主线。建议先用此分类记录 IDEA-001 的控制变量。
 
-本次按普通综述路径完成正文导读与工作日志；没有强行创建 extract/critic/design/spec。本人状态保留 TO_READ，下一步由本人核对图 2 并选择一个具体系统进行四维映射。
+本次按普通综述路径完成正文导读与工作日志；没有强行创建 extract/critic/design/spec。本人已确认阅读完成，状态为 DEEP_READ；下一步选择一个具体系统进行四维映射。
+
+### 阅读进度确认
+
+2026-09-21，用户确认已阅读完成，本人工作进度更新为 DEEP_READ。Evidence level 仍为 skimmed，表示当前笔记已留存证据的核验范围；未据阅读状态自动升级证据或复现状态。
