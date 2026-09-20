@@ -7,7 +7,8 @@
 - Paper：https://arxiv.org/abs/2503.13657
 - Code：https://github.com/multi-agent-systems-failure-taxonomy/MAST
 - Tags：multi-agent, failure taxonomy, evaluation, reliability
-- Status：TO_READ（AI 导读已建，本人待精读）
+- Status：DEEP_READ（用户已确认阅读完成）
+- Read date：具体日期未提供；2026-09-21 确认已读完
 - Evidence level：skimmed
 
 - AI evidence checked：2026-09-21；关键正文及所列图表/附录，非逐项全文审阅。
@@ -74,3 +75,7 @@
 个人推断：为 IDEA-001 提供失败观测语言，但还缺“失败可预测”到“协作能救回”的证据；为 IDEA-002 提供候选标签，尚不能证明标签具有迁移价值。暂不修改方向地图的既有判断。
 
 本轮按核心论文推进至 [extract](../../artifacts/MA-001/extract.md) → [critic](../../artifacts/MA-001/critic.md) → [design](../../artifacts/MA-001/design.md)，并做 [audit](../../artifacts/MA-001/audit.md)。尚未确定实施，按 WORKFLOW §6 不生成 spec，也不建立复现状态。
+
+### 阅读进度确认
+
+2026-09-21，用户确认已阅读完成，本人工作进度更新为 DEEP_READ。Evidence level 仍为 skimmed，表示当前笔记已留存证据的核验范围；未据阅读状态自动升级证据或复现状态。

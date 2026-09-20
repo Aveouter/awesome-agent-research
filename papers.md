@@ -6,7 +6,7 @@
 
 | ID | 方向 | 年份/会议 | 论文 | 状态 | Evidence | 笔记 | 下一步 |
 |---|---|---|---|---|---|---|---|
-| MA-001 | 多 Agent | NeurIPS 2025 D&B | Why Do Multi-Agent LLM Systems Fail? | TO_READ | skimmed | [导读](notes/multi-agent/why-mas-fail.md) | 已核验表 5 与附录 H；审阅等预算验证设计，固定数据和模型版本 |
+| MA-001 | 多 Agent | NeurIPS 2025 D&B | Why Do Multi-Agent LLM Systems Fail? | DEEP_READ | skimmed | [导读](notes/multi-agent/why-mas-fail.md) | 已核验表 5 与附录 H；审阅等预算验证设计，固定数据和模型版本 |
 | MA-002 | 多 Agent | ACL 2025 | MultiAgentBench | TO_READ | skimmed | [导读](notes/multi-agent/multiagentbench.md) | 核对强单 Agent 基线与成本指标 |
 | MA-003 | 多 Agent | IJCAI 2024 Survey | Large Language Model Based Multi-agents: A Survey of Progress and Challenges | TO_READ | abstract-only | [导读](notes/multi-agent/llm-multi-agent-survey.md) | 明日主读：画出系统组成与研究问题地图 |
 | MA-004 | 多 Agent | arXiv 2025 | Multi-Agent Collaboration Mechanisms: A Survey of LLMs | TO_READ | abstract-only | [导读](notes/multi-agent/collaboration-mechanisms-survey.md) | 对照 MA-003 比较协同机制分类法 |
