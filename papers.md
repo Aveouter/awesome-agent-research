@@ -1,6 +1,6 @@
 # Paper Tracker
 
-更新时间：2026-09-15
+更新时间：2026-09-21
 
 > “AI 导读已建”只表示仓库里已有辅助摘要，不代表本人读过。
 
@@ -8,7 +8,7 @@
 |---|---|---|---|---|---|---|---|
 | MA-001 | 多 Agent | NeurIPS 2025 D&B | Why Do Multi-Agent LLM Systems Fail? | TO_READ | skimmed | [导读](notes/multi-agent/why-mas-fail.md) | 精读分类体系和干预实验 |
 | MA-002 | 多 Agent | ACL 2025 | MultiAgentBench | TO_READ | skimmed | [导读](notes/multi-agent/multiagentbench.md) | 核对强单 Agent 基线与成本指标 |
-| MA-003 | 多 Agent | IJCAI 2024 Survey | Large Language Model Based Multi-agents: A Survey of Progress and Challenges | TO_READ | abstract-only | [导读](notes/multi-agent/llm-multi-agent-survey.md) | 明日主读：画出系统组成与研究问题地图 |
+| MA-003 | 多 Agent | IJCAI 2024 Survey | Large Language Model Based Multi-agents: A Survey of Progress and Challenges | TO_READ | skimmed | [导读](notes/multi-agent/llm-multi-agent-survey.md) | 正文分类已核验；按四维记录一个候选系统及实验控制变量 |
 | MA-004 | 多 Agent | arXiv 2025 | Multi-Agent Collaboration Mechanisms: A Survey of LLMs | TO_READ | abstract-only | [导读](notes/multi-agent/collaboration-mechanisms-survey.md) | 对照 MA-003 比较协同机制分类法 |
 | CL-001 | 持续学习 | TPAMI 2026 | Lifelong Learning of LLM-based Agents: A Roadmap | TO_READ | skimmed | [导读](notes/continual-learning/lifelong-agent-roadmap.md) | 重点读定义、记忆和评测章节 |
 | CL-002 | 持续学习 | arXiv 2025 | LifelongAgentBench | TO_READ | skimmed | [导读](notes/continual-learning/lifelongagentbench.md) | 选一个环境跑最小基线 |
