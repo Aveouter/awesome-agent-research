@@ -7,9 +7,9 @@
 - Year / Venue：2025，arXiv
 - Paper：https://arxiv.org/abs/2501.06322
 - Tags：multi-agent, collaboration, coordination, communication, survey
-- Status：TO_READ（AI 已核对关键正文；本人阅读进度不变）
+- Status：DEEP_READ（用户已确认阅读完成）
 - Evidence level：skimmed
-- Read date：
+- Read date：具体日期未提供；2026-09-21 确认已读完
 
 > 历史范围说明：原导读只依据 arXiv 元数据与摘要，未核对正文、图表和引用覆盖范围；本轮补充的范围见后文。
 
@@ -79,3 +79,7 @@
 IDEA-001 可先冻结角色与通信策略，只改变是否协作/参与者选择；这比同时搜索整张拓扑更容易解释。方向地图和 backlog 原有内容保留，本次仅追加有证据边界的建议。
 
 普通综述路径：正文导读、taxonomy 对照、工作日志；不生成无人执行的 spec。下一步由本人选择一个明确控制动作，并补查对应直接竞争论文。
+
+### 阅读进度确认
+
+2026-09-21，用户确认已阅读完成，本人工作进度更新为 DEEP_READ。Evidence level 仍为 skimmed，表示当前笔记已留存证据的核验范围；未据阅读状态自动升级证据或复现状态。

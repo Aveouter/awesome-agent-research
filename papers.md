@@ -9,7 +9,7 @@
 | MA-001 | 多 Agent | NeurIPS 2025 D&B | Why Do Multi-Agent LLM Systems Fail? | TO_READ | skimmed | [导读](notes/multi-agent/why-mas-fail.md) | 精读分类体系和干预实验 |
 | MA-002 | 多 Agent | ACL 2025 | MultiAgentBench | TO_READ | skimmed | [导读](notes/multi-agent/multiagentbench.md) | 核对强单 Agent 基线与成本指标 |
 | MA-003 | 多 Agent | IJCAI 2024 Survey | Large Language Model Based Multi-agents: A Survey of Progress and Challenges | TO_READ | abstract-only | [导读](notes/multi-agent/llm-multi-agent-survey.md) | 明日主读：画出系统组成与研究问题地图 |
-| MA-004 | 多 Agent | arXiv 2025 | Multi-Agent Collaboration Mechanisms: A Survey of LLMs | TO_READ | skimmed | [导读](notes/multi-agent/collaboration-mechanisms-survey.md) | 已核验机制分类并对齐 MA-003；选择单一动态控制变量和直接竞争工作 |
+| MA-004 | 多 Agent | arXiv 2025 | Multi-Agent Collaboration Mechanisms: A Survey of LLMs | DEEP_READ | skimmed | [导读](notes/multi-agent/collaboration-mechanisms-survey.md) | 已核验机制分类并对齐 MA-003；选择单一动态控制变量和直接竞争工作 |
 | CL-001 | 持续学习 | TPAMI 2026 | Lifelong Learning of LLM-based Agents: A Roadmap | TO_READ | skimmed | [导读](notes/continual-learning/lifelong-agent-roadmap.md) | 重点读定义、记忆和评测章节 |
 | CL-002 | 持续学习 | arXiv 2025 | LifelongAgentBench | TO_READ | skimmed | [导读](notes/continual-learning/lifelongagentbench.md) | 选一个环境跑最小基线 |
 | CL-003 | 持续学习 | ICML 2026 | Little by Little: Continual Learning via Incremental Mixture of Rank-1 Associative Memory Experts | TO_READ | abstract-only | [导读](notes/continual-learning/moram.md) | 核对 rank-1 原子复用、路由消融和容量增长成本 |
