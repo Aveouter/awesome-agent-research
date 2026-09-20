@@ -7,7 +7,8 @@
 - Paper：https://aclanthology.org/2025.acl-long.421/
 - Code：https://github.com/ulab-uiuc/MARBLE
 - Tags：multi-agent, benchmark, topology, coordination
-- Status：TO_READ（AI 导读已建，本人待精读）
+- Status：DEEP_READ（用户已确认阅读完成）
+- Read date：具体日期未提供；2026-09-21 确认已读完
 - Evidence level：skimmed
 
 - AI evidence checked：2026-09-21；关键正文及所列图表/附录，非逐项全文审阅。
@@ -78,4 +79,8 @@
 
 个人推断：IDEA-001 首轮需要一项客观且口径固定的任务指标，CS 仅作辅助；不新增“CS 高则路由收益高”的假设。方向地图已有强单 Agent、best-of-N、成本要求，本次保留并补足其依据。
 
-核心论文产物：[extract](../../artifacts/MA-002/extract.md) → [critic](../../artifacts/MA-002/critic.md) → [design](../../artifacts/MA-002/design.md) → [audit](../../artifacts/MA-002/audit.md)。未确定实施，暂不生成 spec；本人状态仍为 TO_READ。
+核心论文产物：[extract](../../artifacts/MA-002/extract.md) → [critic](../../artifacts/MA-002/critic.md) → [design](../../artifacts/MA-002/design.md) → [audit](../../artifacts/MA-002/audit.md)。未确定实施，暂不生成 spec；本人已确认阅读完成，状态为 DEEP_READ。
+
+### 阅读进度确认
+
+2026-09-21，用户确认已阅读完成，本人工作进度更新为 DEEP_READ。Evidence level 仍为 skimmed，表示当前笔记已留存证据的核验范围；未据阅读状态自动升级证据或复现状态。
