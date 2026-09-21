@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+checker="$(dirname "$0")/../scripts/check_git_boundary.py"
+runtime=$(git config --get paperBoundary.python || true)
+if [ -n "$runtime" ]; then
+    exec "$runtime" "$checker" "$@"
+fi
+if command -v python3 >/dev/null 2>&1; then
+    exec python3 "$checker" "$@"
+fi
+echo 'Python unavailable: install hooks using scripts/install_git_hooks.py.' >&2
+exit 1
