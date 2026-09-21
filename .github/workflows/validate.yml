@@ -21,6 +21,12 @@ jobs:
       - name: Validate structure and metadata
         run: python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py validate
 
+      - name: Check file boundary including intermediate commits
+        env:
+          BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        run: python3 scripts/check_git_boundary.py --range "$BASE_SHA" "$HEAD_SHA"
+
       - name: Run workflow tests
         run: python3 -m unittest discover -s tests
 
