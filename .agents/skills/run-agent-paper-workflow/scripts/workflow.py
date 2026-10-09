@@ -7,28 +7,23 @@ import argparse
 import re
 import sys
 from collections import Counter
+from datetime import date
 from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
 
 
 ROOT = Path(__file__).resolve().parents[4]
 TRACKER = ROOT / "papers.md"
 
-STATUSES = {
-    "TO_READ",
-    "SKIMMED",
-    "DEEP_READ",
-    "REPRODUCING",
-    "REPRODUCED",
-    "DROPPED",
-}
-EVIDENCE_LEVELS = {"abstract-only", "skimmed", "full-paper", "reproduced"}
+STATUSES = {"TO_READ", "SKIMMED", "DEEP_READ", "ARCHIVED"}
+LEGACY_STATUSES = {"DROPPED", "REPRODUCING", "REPRODUCED"}
+EVIDENCE_LEVELS = {"abstract-only", "skimmed", "full-paper"}
+LEGACY_EVIDENCE_LEVELS = {"reproduced"}
 TRANSITIONS = {
-    "TO_READ": {"SKIMMED", "DROPPED"},
-    "SKIMMED": {"DEEP_READ", "DROPPED"},
-    "DEEP_READ": {"REPRODUCING", "DROPPED"},
-    "REPRODUCING": {"REPRODUCED", "DEEP_READ"},
-    "REPRODUCED": {"REPRODUCING"},
-    "DROPPED": {"TO_READ"},
+    "TO_READ": {"SKIMMED", "DEEP_READ", "ARCHIVED"},
+    "SKIMMED": {"DEEP_READ", "ARCHIVED"},
+    "DEEP_READ": {"ARCHIVED"},
+    "ARCHIVED": {"TO_READ", "SKIMMED", "DEEP_READ"},
 }
 REQUIRED_FILES = {
     ".agents/skills/run-agent-paper-workflow/SKILL.md",
@@ -37,13 +32,9 @@ REQUIRED_FILES = {
     "CONTEXT.md",
     "README.md",
     "WORKFLOW.md",
-    "artifacts/README.md",
-    "experiments/README.md",
     "inbox.md",
     "papers.md",
     "references/library.bib",
-    "research/direction-map.md",
-    "research/idea-backlog.md",
     "templates/paper-note.md",
 }
 PAPER_ID_PATTERN = re.compile(r"^(?:MA|CL|MC|X)-\d{3}$")
@@ -73,6 +64,9 @@ def validate() -> list[str]:
         return errors
 
     tracker: dict[str, tuple[str, str, Path]] = {}
+    titles: set[str] = set()
+    sources: set[str] = set()
+    note_paths: set[Path] = set()
     for line_number, cells in table_rows():
         if len(cells) != 8:
             errors.append(f"papers.md:{line_number}: expected 8 columns, found {len(cells)}")
@@ -84,16 +78,23 @@ def validate() -> list[str]:
         elif paper_id in tracker:
             errors.append(f"papers.md:{line_number}: duplicate paper ID {paper_id}")
 
-        if status not in STATUSES:
+        if status not in STATUSES | LEGACY_STATUSES:
             errors.append(f"papers.md:{line_number}: invalid status {status!r}")
-        if evidence not in EVIDENCE_LEVELS:
+        if evidence not in EVIDENCE_LEVELS | LEGACY_EVIDENCE_LEVELS:
             errors.append(f"papers.md:{line_number}: invalid evidence level {evidence!r}")
 
+        title = re.sub(r"[^\w]", "", cells[3].casefold())
+        if title in titles:
+            errors.append(f"papers.md:{line_number}: duplicate paper title {cells[3]!r}")
+        titles.add(title)
         link_match = NOTE_LINK_PATTERN.search(cells[6])
         if not link_match:
             errors.append(f"papers.md:{line_number}: note column has no Markdown link")
             continue
         note_path = ROOT / link_match.group(1)
+        if note_path.resolve() in note_paths:
+            errors.append(f"papers.md:{line_number}: duplicate canonical note path")
+        note_paths.add(note_path.resolve())
         if not note_path.is_file():
             errors.append(f"papers.md:{line_number}: missing note {link_match.group(1)!r}")
         tracker[paper_id] = (status, evidence, note_path)
@@ -140,13 +141,26 @@ def validate() -> list[str]:
 
         if note.resolve() != tracker_note.resolve():
             errors.append(f"{relative_path}: tracker points to a different note")
-        if not re.search(r"^- Paper：\s*https?://", content, re.MULTILINE):
+        source_match = re.search(r"^- Paper：\s*(https?://\S+)", content, re.MULTILINE)
+        if source_match:
+            url = urlsplit(source_match.group(1))
+            path = url.path.rstrip("/")
+            if url.hostname in {"arxiv.org", "www.arxiv.org", "export.arxiv.org"}:
+                path = re.sub(r"^/(abs|pdf)/", "/abs/", path)
+                path = re.sub(r"(?:v\d+)?(?:\.pdf)?$", "", path)
+                source = "arxiv.org" + path
+            else:
+                source = urlunsplit(("https", url.netloc.lower(), path, url.query, ""))
+            if source in sources:
+                errors.append(f"{relative_path}: duplicate paper source {source}")
+            sources.add(source)
+        if not source_match:
             errors.append(f"{relative_path}: Paper must use an HTTP(S) source URL")
 
     for paper_id in sorted(set(tracker) - note_ids):
         errors.append(f"papers.md: {paper_id} has no canonical note under notes/")
 
-    for artifact_dir in sorted((ROOT / "artifacts").iterdir()):
+    for artifact_dir in sorted((ROOT / "artifacts").glob("*")):
         if artifact_dir.is_dir() and not PAPER_ID_PATTERN.fullmatch(artifact_dir.name):
             errors.append(f"artifacts/{artifact_dir.name}: directory must use a paper ID")
         elif artifact_dir.is_dir() and artifact_dir.name not in tracker:
@@ -166,7 +180,24 @@ def validate() -> list[str]:
                 relative_path = markdown_file.relative_to(ROOT)
                 errors.append(f"{relative_path}: broken local link {target!r}")
 
+    readme = ROOT / "README.md"
+    if readme.is_file():
+        content = readme.read_text(encoding="utf-8")
+        status_pattern = r"\b(?:TO_READ|SKIMMED|DEEP_READ|ARCHIVED|DROPPED|REPRODUCING|REPRODUCED)\b"
+        if re.search(status_pattern + r"\s*/\s*[a-z-]+", content) or any(
+            re.search(r"\b(?:MA|CL|MC|X)-\d{3}\b", line) and re.search(status_pattern, line)
+            for line in content.splitlines()
+        ):
+            errors.append("README.md: per-paper status/evidence must only be maintained in papers.md")
     return errors
+
+
+def compatibility_warnings() -> list[str]:
+    warnings = []
+    for _, cells in table_rows():
+        if len(cells) == 8 and (cells[4] in LEGACY_STATUSES or cells[5] in LEGACY_EVIDENCE_LEVELS):
+            warnings.append(f"{cells[0]}: legacy {cells[4]} / {cells[5]}; explicit migration required (WORKFLOW.md)")
+    return warnings
 
 
 def print_validation() -> int:
@@ -176,6 +207,8 @@ def print_validation() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
+    for warning in compatibility_warnings():
+        print(f"Warning: {warning}")
     print(f"Repository validation passed: {len(table_rows())} papers checked.")
     return 0
 
@@ -189,6 +222,8 @@ def print_status() -> int:
     rows = [cells for _, cells in table_rows()]
     status_counts = Counter(cells[4] for cells in rows)
     evidence_counts = Counter(cells[5] for cells in rows)
+    for warning in compatibility_warnings():
+        print(f"Warning: {warning}")
     print(f"Papers: {len(rows)}")
     print("Status: " + ", ".join(f"{key}={status_counts[key]}" for key in sorted(status_counts)))
     print(
@@ -229,12 +264,15 @@ def transition(paper_id: str, new_status: str, reason: str | None) -> int:
     if new_status == old_status:
         print(f"{paper_id} is already {new_status}.")
         return 0
+    if old_status in LEGACY_STATUSES:
+        print("Legacy status requires explicit manual migration with user-confirmed reading progress; see WORKFLOW.md.")
+        return 1
     if new_status not in TRANSITIONS[old_status]:
         allowed = ", ".join(sorted(TRANSITIONS[old_status])) or "none"
         print(f"Invalid transition {old_status} -> {new_status}; allowed: {allowed}")
         return 1
-    if old_status == "DROPPED" and new_status == "TO_READ" and not reason:
-        print("DROPPED -> TO_READ requires --reason with the new evidence or priority change.")
+    if (old_status == "ARCHIVED" or new_status == "ARCHIVED") and not reason:
+        print("Archive/restore requires --reason, preserving prior reading progress.")
         return 1
     if reason is not None:
         reason = reason.strip()
@@ -261,6 +299,13 @@ def transition(paper_id: str, new_status: str, reason: str | None) -> int:
     if substitutions != 1:
         print(f"Could not update Status metadata in {note_path.relative_to(ROOT)}")
         return 1
+
+    history = f"- {date.today().isoformat()}：Status {old_status} → {new_status}"
+    if reason:
+        history += f"；{reason}"
+    if "## 6. Reading History" not in updated_note:
+        updated_note = updated_note.rstrip() + "\n\n## 6. Reading History (Optional)\n"
+    updated_note = updated_note.rstrip() + "\n\n" + history + "\n"
 
     matched_cells[4] = new_status
     if reason:

@@ -1,4 +1,4 @@
-name: Validate research repository
+name: Validate paper knowledge repository
 
 on:
   push:

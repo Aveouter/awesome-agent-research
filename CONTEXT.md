@@ -1,44 +1,13 @@
 # Domain Language
 
-本文件定义仓库内术语，防止把阅读、证据和实验混成同一件事。
+本仓库是个人 Agent 论文阅读与知识记录系统。
 
-## Paper ID
-
-论文的持久身份：`MA-###`（多 Agent）、`CL-###`（持续学习）、`MC-###`（元认知）、`X-###`（跨方向）。ID 分配后不复用。
-
-## Status
-
-人的工作进度：`TO_READ`、`SKIMMED`、`DEEP_READ`、`REPRODUCING`、`REPRODUCED`、`DROPPED`。AI 生成了摘要不代表用户已经完成阅读。
-
-## Evidence level
-
-当前页面所依据材料的深度，而不是可信度评分：
-
-- `abstract-only`：仅核对摘要或元数据页。
-- `skimmed`：核对全文关键章节、图表和结论，但没有逐项审阅。
-- `full-paper`：通读正文与关键附录，主要数字可定位。
-- `reproduced`：除全文外，至少一个关键实验得到可解释的复现结果。
-
-## Paper note
-
-一篇论文唯一的人类可读主页面，回答问题、方法、证据、局限、复现成本及与个人研究的关系。
-
-## Analysis artifact
-
-核心论文的阶段性产物，位于 `artifacts/<paper-id>/`。包括 `extract.md`、`critic.md`、`design.md`、`spec.md`、`audit.md`。它们不能相互越权。
-
-## Claim
-
-论文或个人提出的、可以被证据支持或反驳的陈述。记录时必须区分来源和证据强度。
-
-## Research hypothesis
-
-可以通过实验被证伪的关系判断，至少包含自变量、对照、指标和反证条件。功能愿望或“换一个 prompt”不属于研究假设。
-
-## Reproduction
-
-在明确配置、预算和评价协议下验证论文的关键结果。代码能够启动不等于完成复现；结果差异必须得到记录和解释。
-
-## Synthesis
-
-跨多篇论文对齐问题、假设、数据、指标和结果后形成的判断。Synthesis 应引用主笔记或原始来源，不能形成 wiki-to-wiki 的无来源引用循环。
+- **Capture**：标题、链接与可选理由进入 inbox，无 ID 或笔记。
+- **Register**：查重后分配永久 ID，登记 papers.md、唯一笔记与引用。同论文不同版本沿用 ID。MA（多 Agent）、CL（持续学习）、MC（元认知）、X（跨方向）编号不复用。
+- **Status**：人工阅读进度 TO_READ、SKIMMED、DEEP_READ、ARCHIVED；papers.md 是唯一权威，笔记是镜像。AI 导读不代表人读过。
+- **Evidence level**：记录核验材料范围 abstract-only、skimmed、full-paper，不是状态或可信度评分；历史兼容见 WORKFLOW.md。
+- **Paper note**：唯一主笔记，记录问题、方法、证据和个人理解，重读更新原页。
+- **Claim**：作者主张或个人判断；作者报告、直接证据、间接观察与个人推断分开。
+- **Connection / Synthesis**：可选知识链接 / 有来源的跨论文对照与总结。
+- **Reading History**：分次阅读、重读、理解变化和明确迁移的历史。
+- **Analysis artifact / Research hypothesis / Reproduction**：可选历史研究扩展，分别为分阶段产物、可证伪判断和实验验证，独立于阅读生命周期。

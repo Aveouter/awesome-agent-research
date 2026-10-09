@@ -1,87 +1,27 @@
-# Awesome Agent Research：仓库使用说明
+# 仓库使用说明
 
-面向博士研究的 Agent 论文阅读、复现与选题仓库，当前关注三个方向：
+个人 Agent 论文阅读与知识记录系统。最小流程为收藏 → 正式收录 → 记录理解，连接与回顾按需进行。无需研究假设、实验设计或固定日志。
 
-- 多 Agent 协同（Multi-Agent Collaboration）
-- Agent 持续学习（Continual / Lifelong Learning）
-- Agent 元认知（Metacognition / Self-Awareness）
+## 目录
 
-这个仓库不保存论文 PDF，只保存论文链接、自己的理解、实验记录和研究判断。PDF 建议交给 Zotero 管理，避免 Git 仓库膨胀和版权问题。
+核心：inbox.md（收藏）、papers.md（唯一状态总表）、notes/（唯一主笔记）、references/library.bib（引用）、templates/paper-note.md（阅读模板）。syntheses/ 用于跨论文总结；concepts/、entities/ 可选。artifacts/、research/、experiments/、reports/、logs/ 和研究模板是可选扩展与历史资料，保留但不是普通阅读校验依赖。
 
-## 仓库结构
+## 完整例子（演示，不新增登记）
 
-```text
-awesome-agent-research/
-├── AGENTS.md                  # Agent 工作守则与不变量
-├── CONTEXT.md                 # 仓库术语的单一来源
-├── WORKFLOW.md                # 人与 Agent 共用的研究流程
-├── papers.md                  # 唯一的论文进度总表
-├── inbox.md                   # 尚未分类的新论文
-├── .agents/skills/            # 仓库级可复用 Agent Skill
-├── notes/                     # 一篇论文一个 Markdown 文件
-│   ├── cross-cutting/
-│   ├── continual-learning/
-│   ├── multi-agent/
-│   └── metacognition/
-├── artifacts/                 # 核心论文的分阶段分析产物
-├── concepts/                  # 跨论文稳定概念
-├── entities/                  # 数据集、benchmark、方法等实体
-├── syntheses/                 # 跨论文比较与综合
-├── reports/                   # 月报与方向报告
-├── research/
-│   ├── direction-map.md       # 三个方向的关系与个人判断
-│   └── idea-backlog.md        # 可检验的研究想法
-├── experiments/README.md      # 复现实验规范与索引
-├── logs/weekly/               # 每周研究日志
-├── references/library.bib     # 写论文时使用的 BibTeX
-└── templates/paper-note.md    # 精读模板
-```
+1. **收藏**：在 [inbox](../inbox.md) 写 “Why Do Multi-Agent LLM Systems Fail?”、[原文链接](https://arxiv.org/abs/2503.13657)，可选理由“了解协作失败类型”。不建 ID 或笔记。
+2. **正式收录**：检索总表发现已有 MA-001，复用 [原笔记](../notes/multi-agent/why-mas-fail.md)，inbox 标注“已登记 MA-001”。真正的新论文才分配未使用 ID、复制模板、登记总表与 BibTeX，默认 TO_READ。同论文不同版本不重复登记。
+3. **阅读记录**：速读填 TL;DR 和 Takeaways，精读补 Method 和 Evidence，记录数据集、指标、表 5/附录 H 等已核验位置及版本。仅用户确认后修改人工状态；MA-001 已确认 DEEP_READ，保持不变，Evidence skimmed 不猜测升级。
+4. **关联**：Connections 链接 [MA-002](../notes/multi-agent/multiagentbench.md)，说明失败分类与协作评测的关系，较长对照可写 syntheses，无需概念页。
+5. **重读**：更新 MA-001 原笔记，Reading History 追加日期、证据与理解变化，保留旧判断并说明修正理由。不建重复笔记、不回退 DEEP_READ。暂缓用 ARCHIVED，保留原状态；恢复可回到 DEEP_READ。
 
-## 阅读状态
+## 校验与 Git
 
-总表只使用以下状态，避免“收藏等于读过”：
-
-- `TO_READ`：已收录，尚未阅读
-- `SKIMMED`：看过摘要、图表和结论
-- `DEEP_READ`：通读并完成结构化笔记
-- `REPRODUCING`：正在复现
-- `REPRODUCED`：完成复现并记录结果
-- `DROPPED`：确认暂时不值得继续投入
-
-初始化的六篇笔记是 AI 辅助导读，状态仍为 `TO_READ`，需要本人阅读后才能更新。
-
-## 标准 Workflow
-
-完整流程见 [WORKFLOW.md](../WORKFLOW.md)：
-
-```text
-INBOX → TO_READ → SKIMMED → DEEP_READ → REPRODUCING → REPRODUCED
-                         ↘ DROPPED
-```
-
-GitHub 提供 Paper、Experiment 和 Research Idea 三种 issue 表单。仓库会在 push 和 Pull Request 时自动检查论文 ID、状态、笔记元数据和内部链接；本地可以运行：
+状态、Evidence、历史兼容和 Git 规则见 [WORKFLOW](../WORKFLOW.md)。AI 导读不会自动修改人工状态；README 仅列元数据和链接，笔记状态是总表镜像。
 
 ```bash
 python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py validate
+python3 -m unittest discover -s tests
+python3 scripts/check_git_boundary.py --staged
 ```
 
-仓库级 Agent Skill 位于 `.agents/skills/run-agent-paper-workflow/`。Codex 在仓库内启动时可以自动发现，也可以显式使用 `$run-agent-paper-workflow`。
-
-结构与流程参考了 [ACautomata/researcher-service](https://github.com/ACautomata/researcher-service) 及其关联的 [ACautomata/researcher](https://github.com/ACautomata/researcher)，保留了“持久规则 + 场景 Skill + 确定性脚本 + 分阶段质量门”的思想，但简化为适合个人博士研究的单一编排 Skill。
-
-## 推荐工作流
-
-1. 新论文先放进 [inbox.md](../inbox.md)，不要立即分类。
-2. 每周从 inbox 选择 2–3 篇，登记到 [papers.md](../papers.md)。
-3. 复制 [论文精读模板](../templates/paper-note.md)，完成一篇一页的笔记。
-4. 每篇至少写清楚：解决什么问题、核心证据、最大局限、能否复现、能产生什么新问题。
-5. 只有可验证的想法才进入 [idea-backlog.md](../research/idea-backlog.md)。
-6. 每周写一次研究日志，记录判断发生了什么变化。
-
-## Git 与 Pull Request
-
-所有修改，包括日常笔记、元数据、实验代码和仓库维护，都必须从最新 `main` 建立独立分支，通过 Pull Request 和自动检查后再合并。不得直接推送 `main`。详细命名与提交约定见 [WORKFLOW.md](../WORKFLOW.md#10-git-约定)。
-
-## 当前研究假设
-
-暂定主线为：**可靠、自适应的多 Agent 协同**；以元认知完成能力评估、路由和验证，以持续学习积累长期经验。这个假设会随阅读和实验更新，而不是预设结论。
+本次重构独立分支与 PR，合并后普通阅读可按批次提交并共用 PR；规则、脚本、模板、迁移仍独立维护 PR。保留 hooks 与 CI，不直接推送 main。按 [文件边界](storage-boundaries.md) 将 PDF、Zotero、全文提取和附件留在 D:\paper，本次不迁移本地数据。

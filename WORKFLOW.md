@@ -1,184 +1,71 @@
-# Research Workflow
+# Paper Reading Workflow
 
-这套流程用于把“看到论文”稳定地转化为“形成研究判断、完成复现、产生可投稿的问题”。默认每周处理 2–3 篇论文，避免为了维护仓库而维护仓库。
-
-## 1. 生命周期
+个人 Agent 论文阅读与知识记录系统，服务于收藏、理解、检索和长期知识积累。
 
 ```text
-发现论文
-   ↓
-INBOX：只记录链接和收录理由
-   ↓ 每周筛选
-TO_READ：进入 papers.md，分配唯一 ID
-   ↓ 20–30 分钟速读
-SKIMMED ─────────────→ DROPPED
-   ↓ 值得继续
-DEEP_READ：完成结构化笔记
-   ├─ 普通论文 → 更新概念或跨论文综合
-   └─ 核心论文 → extract → critic → design → spec → audit
-                                      ↓ 有关键结果需要验证
-                                  REPRODUCING
-   ↓ 得到可解释的结果
-REPRODUCED
-   ↓
-更新方向地图 / 形成研究假设 / 写作引用
+CAPTURE → REGISTER → READ & NOTE ↔ CONNECT ↔ REVIEW & RETRIEVE
 ```
 
-状态只能按上述方向迁移。重新关注 `DROPPED` 论文时，先写明新证据，再改回 `TO_READ`。
+阶段可跳过、重复和按需执行；实验不是阅读完成条件。
 
-恢复已放弃论文时使用 `transition <ID> TO_READ --reason "..."`，理由会写入总表的“下一步”列。
+## Capture：收藏
 
-状态与证据等级是两个维度：状态表示本人完成到了哪一步；`evidence_level` 表示当前页面实际核对了多少原始材料。
+只在 inbox.md 添加标题、原始链接与可选理由，不分配 ID、不写总表、不建主笔记。Paper intake issue 是远程收藏入口，整理到 inbox 后再决定正式收录。无需评分、研究价值或固定周计划。
 
-```text
-abstract-only → skimmed → full-paper → reproduced
-```
+## Register：正式收录
 
-例如，AI 根据全文建立了辅助导读时，页面可以是 `skimmed` evidence，但本人的状态仍是 `TO_READ`。
+先检查 papers.md、notes/ 和 references/library.bib 的标题、DOI/arXiv ID 和链接。同论文不同版本沿用原 ID 和笔记。确认无重复才分配下一个未使用 ID（MA/CL/MC/X-###），复制 templates/paper-note.md，登记总表与引用。默认 TO_READ / abstract-only，实际核验更多材料再记录 Evidence。inbox 标注登记 ID，保留来源；ID 不复用。
 
-## 2. Capture：收集
+## Read & Note：阅读与记录
 
-发现论文后，在 `inbox.md` 追加一行：
+速读可只填 Metadata、TL;DR、Takeaways；精读补 Problem & Contribution、Method、Evidence。重要数字尽量记录数据集、指标、原文版本、页码/图表。分次阅读可逐步补充，无需实验计划、可证伪假设或选题。
 
-- 使用论文主页、会议页面或 arXiv 等原始来源。
-- 写一句“为什么与当前研究有关”，不要只保存标题。
-- 暂时不要建笔记，不下载 PDF 到仓库。
+区分作者报告、直接证据、间接观察和个人推断；未核实写“原文尚未核实”，缺失写“原文未报告”。AI 辅助导读只更新笔记和核验范围；只有用户明确报告或授权人工进度变更，才同步总表与笔记 Status 镜像。
 
-也可以使用 GitHub 的 **Paper intake** issue 表单远程收集，周整理后关闭 issue。
+## 阅读状态与证据
 
-## 3. Triage：每周筛选
+papers.md 是阅读状态唯一权威来源；笔记 Status 是校验镜像，README 只列稳定元数据与链接。
 
-每篇按 0–2 分快速判断，总分 0–10：
+| Status | 含义 | 可迁移到 |
+|---|---|---|
+| TO_READ | 已正式收录，尚未人工阅读 | SKIMMED、DEEP_READ、ARCHIVED |
+| SKIMMED | 已速读，理解主要问题和贡献 | DEEP_READ、ARCHIVED |
+| DEEP_READ | 已精读，形成可回顾的结构化笔记 | ARCHIVED |
+| ARCHIVED | 暂缓或不再优先阅读，保留记录 | TO_READ、SKIMMED、DEEP_READ |
 
-| 维度 | 0 分 | 1 分 | 2 分 |
-|---|---|---|---|
-| 方向相关性 | 无关 | 间接相关 | 直接影响当前问题 |
-| 新颖性 | 已知做法 | 局部变化 | 新问题或新机制 |
-| 证据质量 | 较弱 | 基本充分 | 强基线、消融和统计完整 |
-| 可复现性 | 数据/代码不可得 | 部分可得 | 代码数据完整、成本可承受 |
-| 研究价值 | 只适合了解 | 可作相关工作 | 可产生实验或反驳当前判断 |
+归档/恢复需理由，迁移记录保留日期、旧值与原进度。恢复可回到已确认进度，重读不回退 DEEP_READ。重读补充原笔记的 Reading History，不建新 ID。
 
-- `7–10`：进入 `papers.md`，计划精读。
-- `4–6`：只速读；除非出现新证据，不投入复现。
-- `0–3`：标记 `DROPPED` 或不进入总表。
-
-论文 ID 按方向递增：`MA-###`、`CL-###`、`MC-###`；跨方向论文使用 `X-###`。ID 一旦分配不再复用。
-
-## 4. Skim：速读
-
-建议顺序：摘要 → 图 1 → 实验表格 → 结论与局限 → 引言。目标不是理解全部公式，而是回答：
-
-1. 它声称解决什么问题？
-2. 最强证据是什么？
-3. 与哪个强基线相比？
-4. 最大限制或不公平因素是什么？
-5. 是否值得精读、复现或引用？
-
-完成后把状态改为 `SKIMMED`，并至少填写笔记中的“一句话结论”和“初步证据”。
-
-## 5. Deep read：精读
-
-从 `templates/paper-note.md` 复制笔记，文件名使用小写 kebab-case。精读完成的定义：
-
-- 能不看摘要，用自己的话解释问题、方法和假设。
-- 记录至少一个关键结果，并注明对应表格或图编号。
-- 检查数据、基线、指标、消融和评测方式。
-- 明确区分“作者的主张”和“自己的推断”。
-- 写出最大局限、复现成本，以及它如何改变个人方向判断。
-- 更新 `references/library.bib`。
-
-全部完成后才能将状态设为 `DEEP_READ`。
-
-## 6. Full analysis：核心论文分析链
-
-参考 ACautomata/researcher 的两层科研技能设计，但在个人仓库中只对少量核心论文运行：
-
-```text
-主笔记 → extract → critic → design → spec → audit
-```
-
-产物放在 `artifacts/<paper-id>/`，从 `templates/` 复制对应模板。阶段边界如下：
-
-- `extract`：提取实验目标、设置、主结果、消融、效率和证据位置；只记录事实，不进行完整批判。
-- `critic`：检查 claim—机制—证据链，提出具体、重要、可验证的质疑；不直接写完整实验方案。
-- `design`：把 critic 中的高优先级问题转成小规模、可控实验；每项必须有反证条件。
-- `spec`：把设计翻译成执行任务、配置与结果格式；未知代码路径使用明确占位，不臆造。
-- `audit`：只读检查结构完整性、证据分级、阶段边界和跨阶段一致性；区分必须修复与建议改进。
-
-没有 `extract` 不进入 `critic`，没有 `critic` 不进入 `design`。只有用户要求实现或确定准备复现时才写 `spec`，避免产生无人执行的工程文档。
-
-## 7. Reproduce：复现
-
-复现前先建立 **Experiment** issue，并把问题写成可证伪假设。每次只做一个最小实验：
-
-```text
-experiments/<paper-id>-<short-name>/
-├── README.md
-├── configs/
-├── scripts/
-└── results/
-```
-
-`README.md` 必须记录模型版本、数据、随机种子、命令、GPU/API、Token、时间、费用、原论文结果和复现结果。大型模型、数据和原始轨迹不进入 Git。
-
-如果代码能够运行但无法解释与原论文的差异，仍保持 `REPRODUCING`；只有结果可解释且失败案例已记录时，才设为 `REPRODUCED`。
-
-## 8. Synthesize：形成研究产出
-
-每完成一篇精读或复现，都检查三处：
-
-- `research/direction-map.md`：是否有证据支持或推翻当前方向判断？
-- `research/idea-backlog.md`：能否形成“假设—实验—反证条件”？
-- `concepts/`、`entities/`：是否出现值得跨论文复用的稳定概念或实体？
-- `syntheses/`：是否能形成 method、dataset、metric、result 对齐的跨论文比较？
-- 当周日志：本周最重要的判断变化是什么？
-
-“改一个 prompt”“多加一个 Agent”不单独算研究想法。一个合格想法必须说明对照组、预算、指标，以及出现什么结果就应放弃。
-
-## 9. 每周与每月节奏
-
-### 每周
-
-- 周一：清理 inbox，选择 2–3 篇。
-- 周二至周四：至少一篇精读或一个最小复现实验。
-- 周五：更新总表、idea backlog 和 weekly log。
-- 周末：只补遗漏，不无限扩充待读列表。
-
-### 每月
-
-- 汇总各方向新增证据、论文数量和复现进度。
-- 删除长期无价值的待读项。
-- 选出下月唯一主问题，而不是同时推进多个宽泛方向。
-
-## 10. Git 约定
-
-本地资料与仓库职责见 [文献文件与 Git 边界](docs/storage-boundaries.md)。`D:\paper` 不初始化为 Git 仓库，也不作为本仓库的子目录或链接导入。PDF、全文提取结果和 Zotero 数据只存本地。
-
-首次使用克隆时执行 `python3 scripts/install_git_hooks.py`，启用提交和推送前检查；不要使用 `--no-verify` 绕过。新克隆不会自动安装 hooks。共享研究规则由 `AGENTS.md` 维护，`CLAUDE.md` 只引用，不复制 workflow。
-
-所有修改，包括日常笔记、元数据、实验代码和仓库维护，都必须从最新 `main` 建立独立分支，通过 Pull Request 和自动检查后再合并。不得直接推送 `main`。
-
-分支命名：
-
-- `paper/MA-003-short-title`
-- `experiment/MA-001-failure-router`
-- `research/idea-003-short-name`
-- `codex/paper-git-boundaries`：工具与规则维护示例。
-
-每篇论文单独 PR，公共规则维护单独 PR。并行任务采用独立 worktree；共享总表与引用文件整合前核对最新基准。
-
-提交前缀：
-
-- `notes:` 新增或更新论文笔记
-- `experiment:` 复现代码与结果
-- `research:` 方向判断与研究想法
-- `chore:` 仓库维护
-
-提交或发起 Pull Request 前运行：
+Evidence 独立描述材料核验范围：abstract-only（摘要/元数据）、skimmed（全文关键章节/图表）、full-paper（正文与关键附录，主要数字可定位）。DEEP_READ / skimmed 可以共存：人的完成进度和记录的核验范围不同，不能自动升级 Evidence。
 
 ```bash
-python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py validate
-python3 scripts/check_git_boundary.py --staged
+python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py transition MA-001 ARCHIVED --reason "已精读，暂缓后续阅读"
+python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py transition MA-001 DEEP_READ --reason "恢复已确认精读进度"
 ```
 
-GitHub 会在 push 和 Pull Request 时自动执行相同检查。
+### 旧状态兼容与迁移
+
+校验识别历史 DROPPED、REPRODUCING、REPRODUCED 及 Evidence reproduced，并输出兼容警告；这些不属于新状态机，不能作为 transition 目标，仅供逐项处理历史资料。
+
+- DROPPED → ARCHIVED：用户确认后同步总表和笔记，追加日期、旧值与理由。
+- REPRODUCING / REPRODUCED：实验进度保留在历史记录或独立实验页；人工状态依据用户确认选择，未知则保留旧值并提示，不猜测 DEEP_READ。
+- reproduced Evidence：保留复现证据引用，核对材料范围后明确改为 full-paper 等，不静默转换。
+
+当前 13 篇无需旧状态转换；MA-001 至 MA-004 的 DEEP_READ 与 skimmed Evidence 保留。
+
+## Connect：知识连接
+
+按需在 Connections 链接相关论文、比较方法与概念。跨论文对齐问题、方法、数据集、指标时使用 syntheses/；concepts/、entities/ 可选。
+
+## Review & Retrieve：回顾与检索
+
+通过总表、标签和主笔记检索，纠错与重读更新原页，追加理解变化及证据位置。阅读日志、周报和月报可选，无固定频率。
+
+## 可选历史研究资料
+
+artifacts/、research/、experiments/ 及研究模板保留为历史或明确请求的扩展，不是阅读校验依赖。事实提取与批判性理解优先整合主笔记；完整阅读分析也不默认生成五阶段文件。明确要求分阶段研究或复现时才使用 extract → critic → design → spec → audit，分别负责事实、质疑、验证设计、执行任务与一致性审计；不臆造训练入口，实验进度单独记录。
+
+## Git 约定
+
+本次重构从最新 main 建独立分支，通过 PR 与自动检查后合并。以下轻量策略仅在本次规则合并后启用：普通笔记、总表与对应引用可按阅读批次提交，共用分支和 PR，无需一篇论文一个 PR。公共规则、脚本、模板和目录迁移仍单独维护分支与 PR。不得直接推送 main。默认分支 codex/，提交用 notes:、refactor: 或 chore:。
+
+提交前运行 workflow validate、单元测试与文件边界检查，保留 hooks 和 CI。PDF、Zotero、全文提取、密钥和大型二进制只留本地，D:\paper 与 Git 隔离。详见 [文献文件与 Git 边界](docs/storage-boundaries.md)。
