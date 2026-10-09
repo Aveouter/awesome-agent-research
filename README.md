@@ -2,6 +2,8 @@
 
 A curated paper list and evidence-backed research workspace for reliable, adaptive AI agents.
 
+本仓库存放研究笔记、引用和必要的维护源码；PDF、Zotero 数据及全文提取材料只保存在本地 `D:\paper`。首次使用请按[文献文件与 Git 边界](docs/storage-boundaries.md)启用提交和推送检查。
+
 本仓库持续整理三个相互关联的方向：**多 Agent 协同**、**Agent 持续学习**与 **Agent 元认知**。当前研究主线是：利用元认知进行能力评估、路由和验证，通过持续学习积累经验，从而构建可靠、自适应的多 Agent 系统。
 
 [论文总表](papers.md) · [明日综述阅读包](reports/2026-09-16-survey-reading-pack.md) · [阅读工作流](WORKFLOW.md) · [研究方向图](research/direction-map.md) · [仓库使用说明](docs/repository-guide.md) · [BibTeX](references/library.bib)

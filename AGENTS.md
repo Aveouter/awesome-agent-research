@@ -8,6 +8,7 @@
 2. 阅读 `WORKFLOW.md` 中与当前请求对应的阶段。
 3. 检查 `papers.md` 和现有笔记，避免重复收录或覆盖人工记录。
 4. 论文任务优先使用 `.agents/skills/run-agent-paper-workflow/SKILL.md`。
+5. 阅读 `docs/storage-boundaries.md`，确认已启用本地 Git hooks；实际处理的 PDF 必须位于仓库外。
 
 ## 内容层次
 
@@ -32,6 +33,10 @@
 - AI 辅助导读不能自动把用户的阅读状态改成 `SKIMMED` 或 `DEEP_READ`。
 - 一篇论文只有一个主笔记和一个 ID；重读时更新原页面，不创建重复页面。
 - PDF、模型、数据集、密钥和大型原始轨迹不提交到 Git。
+- `D:\paper` 整个目录不纳入 Git。Zotero 数据库、账号配置、附件和全文提取副本只留在本地；不要递归扫描配置目录。
+- 仓库以 Markdown 笔记及必要的引用/维护源码为主；文件类型、大小和内容边界由 `scripts/check_git_boundary.py` 检查。不得绕过 hooks 或用改后缀、LFS、符号链接规避规则。
+- 共用规则在本仓库维护；Claude Code 通过 `CLAUDE.md` 引用，其他客户端先确认加载 `AGENTS.md`。模型名称不保证规则自动生效。
+- 一篇论文一个 PR；跨论文的工具与规则维护使用独立维护 PR。并行任务使用独立 worktree 并明确文件归属，不自动委派额外 Agent。
 - 所有修改都从最新 `main` 建立独立分支，通过 Pull Request 和自动检查后再合并；不得直接推送 `main`。
 - 修改论文笔记时，在同一个变更中同步 `papers.md`；元数据改变时同步 `references/library.bib`。
 - 保留人工笔记。无法确认内容归属时，只追加有来源的补充，不静默改写原判断。
@@ -58,6 +63,7 @@ paper note → extract → critic → design → spec → audit
 
 ```bash
 python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py validate
+python3 scripts/check_git_boundary.py --staged
 ```
 
 报告实际更改、当前论文状态、证据缺口以及建议的下一步。除非用户明确要求，不自动发布、分享或将仓库改为公开。

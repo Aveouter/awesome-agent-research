@@ -1,5 +1,32 @@
 # Paper files and large artifacts
 *.pdf
+*.[pP][dD][fF]
+*.sqlite*
+*.db
+*.db-*
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.safetensors
+*.pt
+*.pth
+*.bin
+Zotero/
+ZoteroProfile/
+cache/
+inbox/
+exports/
+work/
+.dsh/
+.codex/
+.claude/
+node_modules/
 data/
 models/
 checkpoints/
@@ -10,7 +37,11 @@ traces/
 # Secrets and local environments
 .env
 .env.*
-!.env.example
+*.pem
+*.key
+credentials.json
+secrets.json
+logins.json
 .venv/
 venv/
 

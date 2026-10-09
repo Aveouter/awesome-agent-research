@@ -152,6 +152,10 @@ experiments/<paper-id>-<short-name>/
 
 ## 10. Git 约定
 
+本地资料与仓库职责见 [文献文件与 Git 边界](docs/storage-boundaries.md)。`D:\paper` 不初始化为 Git 仓库，也不作为本仓库的子目录或链接导入。PDF、全文提取结果和 Zotero 数据只存本地。
+
+首次使用克隆时执行 `python3 scripts/install_git_hooks.py`，启用提交和推送前检查；不要使用 `--no-verify` 绕过。新克隆不会自动安装 hooks。共享研究规则由 `AGENTS.md` 维护，`CLAUDE.md` 只引用，不复制 workflow。
+
 所有修改，包括日常笔记、元数据、实验代码和仓库维护，都必须从最新 `main` 建立独立分支，通过 Pull Request 和自动检查后再合并。不得直接推送 `main`。
 
 分支命名：
@@ -159,6 +163,9 @@ experiments/<paper-id>-<short-name>/
 - `paper/MA-003-short-title`
 - `experiment/MA-001-failure-router`
 - `research/idea-003-short-name`
+- `codex/paper-git-boundaries`：工具与规则维护示例。
+
+每篇论文单独 PR，公共规则维护单独 PR。并行任务采用独立 worktree；共享总表与引用文件整合前核对最新基准。
 
 提交前缀：
 
@@ -171,6 +178,7 @@ experiments/<paper-id>-<short-name>/
 
 ```bash
 python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py validate
+python3 scripts/check_git_boundary.py --staged
 ```
 
 GitHub 会在 push 和 Pull Request 时自动执行相同检查。
