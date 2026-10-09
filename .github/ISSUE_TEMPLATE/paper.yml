@@ -1,5 +1,5 @@
 name: Paper intake
-description: 收录一篇准备筛选或阅读的论文
+description: 收藏论文：仅标题和链接必填，先整理到 inbox；Register 后才分配 ID 和主笔记
 title: "[Paper] "
 labels:
   - "type: paper"
@@ -28,14 +28,14 @@ body:
         - Metacognition
         - Cross-cutting
     validations:
-      required: true
+      required: false
   - type: textarea
     id: reason
     attributes:
-      label: 收录理由
-      description: 它可能改变哪个研究判断，或者提供什么方法、数据和基线？
+      label: 收藏理由 / 希望了解的内容
+      description: 可选：为什么收藏，或希望了解什么？
     validations:
-      required: true
+      required: false
   - type: input
     id: source
     attributes:

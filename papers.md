@@ -1,6 +1,8 @@
 # Paper Tracker
 
-更新时间：2026-09-21
+工作流说明更新：2026-10-09；论文记录保留原进度。
+
+> 本表是阅读状态唯一权威来源。DEEP_READ / skimmed 表示人工已确认精读，而记录仅核验关键章节，不自动升降状态或 Evidence。
 
 > “AI 导读已建”只表示仓库里已有辅助摘要，不代表本人读过。
 
@@ -20,7 +22,7 @@
 | MC-004 | 元认知 | TACL 2024 | When Can LLMs Actually Correct Their Own Mistakes? | TO_READ | abstract-only | [导读](notes/metacognition/self-correction-critical-survey.md) | 提取自我纠错成立条件与实验检查表 |
 | X-001 | 跨方向 | arXiv 2026 | Mendel Gödel Machine | TO_READ | abstract-only | [导读](notes/cross-cutting/mendel-godel-machine.md) | 精读比较进化算子、基线公平性和迁移实验 |
 
-## 本月目标
+## 历史本月目标（2026-09，可选研究记录）
 
 - 完成 [2026-09-16 综述阅读包](reports/2026-09-16-survey-reading-pack.md) 的三篇主读。
 - 复现一个低成本 DMC 或 MAST 子实验。

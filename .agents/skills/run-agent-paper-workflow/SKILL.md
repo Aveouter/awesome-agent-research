@@ -1,64 +1,35 @@
 ---
 name: run-agent-paper-workflow
-description: Manage this repository's Agent paper intake, structured reading, reviewer-style critique, validation design, reproduction tracking, cross-paper synthesis, and quality audit. Use for adding, reading, comparing, auditing, or updating research papers in this repo; do not use for unrelated research outside the repository.
+description: Capture, register, read, connect, review or update Agent papers in this repository while preserving canonical notes, human progress and source evidence. Not for unrelated research.
 ---
 
 # Run Agent Paper Workflow
 
-Paths are relative to the repository root.
+Paths are relative to repository root. Read CONTEXT.md and the matching WORKFLOW.md stage first.
 
-## Route the request
+## Route and complete
 
-- **Intake** — user provides a paper and wants it collected: duplicate-check, assign an ID, add metadata and create one note.
-- **Read** — user asks to skim or deeply read: inspect the primary paper, update its note, evidence level and tracker status.
-- **Critique** — user asks for weaknesses, reviewer questions or research gaps: require a sufficiently complete note; write `artifacts/<paper-id>/critic.md`.
-- **Validate** — user asks how to test a claim: require critique; write `design.md`, then `spec.md` only if implementation is requested.
-- **Reproduce** — user asks to run an experiment: create or update `experiments/<paper-id>-<slug>/`, record configuration, cost and results, then transition status.
-- **Synthesize** — user asks to compare papers or choose a direction: align methods, datasets, metrics and results in `syntheses/`; cite source notes and expose evidence gaps.
-- **Audit** — user asks to check analysis quality, or a full chain is ready: inspect without silently rewriting; write `audit.md` with blocking and non-blocking findings.
+- **Capture**: title, primary URL and optional reason go in inbox.md only. Finish without ID, tracker row or note.
+- **Register**: search papers.md, notes/ and references/library.bib by title, DOI/arXiv ID and URL. Reuse existing paper/version identity; otherwise assign an unused ID, create one template note and register tracker + citation together. Mark inbox disposition. Finish with one ID and one note.
+- **Read**: inspect official paper/full text, update canonical note and actual Evidence. Skim needs Metadata, TL;DR and Takeaways; deep reading adds Method and Evidence. Change human Status only when user explicitly confirms or authorizes progress.
+- **Connect**: optional note links; compare methods, datasets and metrics in syntheses/. Concepts/entities are optional.
+- **Review**: retrieve, correct or reread original note; append understanding changes and evidence positions. Preserve human content and confirmed progress.
 
-For exact status transitions, artifact boundaries and completion criteria, read the relevant section of `WORKFLOW.md`. Use terminology from `CONTEXT.md`.
+## Evidence and preservation
 
-## Preflight
+Prefer paper homepages, conferences, publishers or arXiv. Numeric results name dataset, metric, available table/figure/page and version. Distinguish author reports, direct evidence, indirect observation and reader inference. Missing: “原文未报告”; unverified: “原文尚未核实”. AI may improve Evidence without changing Status. Use WORKFLOW.md transitions and explicit legacy migration; never silently convert old states.
 
-1. Search `papers.md`, `notes/`, `artifacts/` and `references/library.bib` before creating anything.
-2. Resolve paper metadata from an authoritative source. When reading claims, use the paper PDF or official full text rather than search snippets or third-party summaries.
-3. Preserve user-written content and unrelated changes.
-4. Do not commit PDFs, model weights, datasets, secrets or large raw traces.
+Facts and critique belong in the main note. Historical artifacts, research and experiments are optional and preserved. Generate extract/critic/design/spec/audit only on explicit request for staged research products, using AGENTS.md boundaries and templates/. Ordinary reading requires no hypothesis or experiment.
 
-## Evidence contract
+Read docs/storage-boundaries.md before handling local attachments. Keep PDFs, Zotero databases, full-text extraction, secrets and large binaries outside Git. Git rules are in WORKFLOW.md.
 
-- Every numeric main result should name its dataset and metric and, when available, its table, figure or page.
-- Label statements as author-reported, indirect observation or reader inference when the distinction matters.
-- Write “原文未报告” for absent details; do not infer training settings, baselines or hardware.
-- Keep `status` and `evidence_level` separate. AI-assisted reading may improve evidence level but must not claim the user personally read the paper.
-- Prefer updating a canonical note to creating a duplicate.
-
-## Full-analysis mode
-
-Only use the full chain for an anchor paper, a direct competing work, or a paper the user intends to reproduce:
-
-```text
-note → extract → critic → design → spec → audit
-```
-
-Use templates from `templates/`. Each stage consumes the previous stage and stays within the boundary documented in `AGENTS.md`. If a prerequisite is missing, produce the missing upstream artifact first when the request authorizes that work; otherwise report the dependency.
-
-## Repository commands
+## Commands and finish
 
 ```bash
-# Summary of the tracker
 python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py status
-
-# Validate IDs, states, evidence levels, notes and local links
 python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py validate
-
-# Apply a valid lifecycle transition to tracker and canonical note
-python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py transition MA-001 SKIMMED
+# Only after user confirms human progress:
+python3 .agents/skills/run-agent-paper-workflow/scripts/workflow.py transition MA-001 DEEP_READ
 ```
 
-Do not use `transition` as a substitute for doing the work required by the target state's definition of done.
-
-## Finish
-
-Run `validate`. Report the files changed, current status and evidence level, important missing evidence and the smallest useful next step. Do not publish or change repository visibility unless the user explicitly asks.
+Run validate after changes. Report changed records, unchanged/confirmed human Status, Evidence, source gaps and next reading step. Do not publish or change visibility without explicit request.
