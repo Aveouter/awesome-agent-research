@@ -21,3 +21,14 @@
 - 指标：连续任务成功率、遗忘程度、上下文长度、检索命中率。
 - 反证条件：性能主要由示例数量决定，失败标签没有提供额外增益。
 - 相关论文：CL-002、MA-001。
+
+## IDEA-003：Skill-guided HACE：人类技能驱动的小样本泛化与协同进化
+
+- 状态：待验证
+- 问题：当领域标签极少时，LLM 能否把人类的操作流程、判断规则和反例转化为可验证的 Skills，并经由 Prompt / Adapter 迁移给 Specialist，从而改善跨样本、跨环境和跨任务泛化？
+- 假设：相比只筛选现有训练样本或使用静态类别描述，经过 Specialist 独立反馈迭代修订的程序性 Skills 能在相同标注、模型和计算预算下改善小样本泛化。
+- 最小实验：冻结 CLIP/科学视觉编码器，在 1/4/8/16-shot 和独立 OOD/meta-test 中对比普通 Prompt Tuning、静态 Skill、随机/错误 Skill、HACE 式数据选择、动态 Skill 修订；先不更新 LLM 参数。
+- 指标：IID/OOD 准确率、跨任务迁移、泛化差距、GPU-hours、Token。
+- 反证条件：控制搜索预算后没有稳定增益；效果等价于更长 Prompt；OOD 或未见任务退化；增益无法归因于可验证的技能知识。
+- 关联：HACE、LaBo、CoCoBMs、BC-LLM、CoOp/CoCoOp/KgCoOp（文献差异待深入核查）。
+- [完整想法与实验草案](idea-003-skill-hace-few-shot-generalization.md)
